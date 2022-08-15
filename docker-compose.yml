@@ -1,0 +1,39 @@
+version: '3.4'
+
+services:
+  keycloakdb:
+    container_name: keycloakdb
+    image: postgres:${POSTGRES_VERSION:-14.5}-alpine
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-keycloak}
+      POSTGRES_USER: ${POSTGRES_USER:-keycloak}
+      POSTGRES_PASSWORD: ${POSTGRES_PASS:-p@ssw0rd}
+
+  keycloak:
+    container_name: keycloak
+    #image: quay.io/keycloak/keycloak:19.0.1
+    image: keycloak_image
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN:-admin}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASS:-admin}
+      KC_HTTP_ENABLED: "true"
+      #KC_HOSTNAME: localhost
+      #KC_HOSTNAME_PORT: 8443
+      #PROXY_ADDRESS_FORWARDING: "true"
+      KC_HOSTNAME_STRICT: "false"
+      KC_HOSTNAME_STRICT_BACKCHANNEL: "true"
+      KC_HOSTNAME_STRICT_HTTPS: "false"
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloakdb:5432/${POSTGRES_DB:-keycloak}?useSSL=false
+      KC_DB_USERNAME: ${POSTGRES_USER:-keycloak}
+      KC_DB_PASSWORD: ${POSTGRES_PASSWORD:-p@ssw0rd}
+      KC_LOG_LEVEL: debug
+      KC_PROXY: edge
+    depends_on:
+      - keycloakdb
+
+volumes:
+  pgdata:
+    driver: local

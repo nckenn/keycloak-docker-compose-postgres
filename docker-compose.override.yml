@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  # keycloakdb:
+  #   ports:
+  #     - 32769:5432
+
+  keycloak:
+    command: start-dev
+    ports:
+      - 8081:8080
