@@ -1,8 +1,33 @@
 version: '3.4'
 
 services:
+  caddy:
+    build:
+      context: ./caddy
+    container_name: keycloak_proxy
+    restart: unless-stopped
+    environment:
+      SERVER_NAME: ${SERVER_NAME:-localhost}
+
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+    ports:
+      # HTTP
+      - target: 80
+        published: ${HTTP_PORT:-80}
+        protocol: tcp
+      # HTTPS
+      - target: 443
+        published: ${HTTPS_PORT:-443}
+        protocol: tcp
+      # HTTP/3
+      - target: 443
+        published: ${HTTP3_PORT:-443}
+        protocol: udp
+
   keycloakdb:
-    container_name: keycloakdb
+    container_name: keycloak_db
     image: postgres:${POSTGRES_VERSION:-14.5}-alpine
     volumes:
       - pgdata:/var/lib/postgresql/data
@@ -12,8 +37,9 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASS:-p@ssw0rd}
 
   keycloak:
+    build:
+      context: ./keycloak
     container_name: keycloak
-    #image: quay.io/keycloak/keycloak:19.0.1
     image: keycloak_image
     environment:
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN:-admin}
@@ -29,11 +55,11 @@ services:
       KC_DB_URL: jdbc:postgresql://keycloakdb:5432/${POSTGRES_DB:-keycloak}?useSSL=false
       KC_DB_USERNAME: ${POSTGRES_USER:-keycloak}
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD:-p@ssw0rd}
-      KC_LOG_LEVEL: debug
       KC_PROXY: edge
     depends_on:
       - keycloakdb
 
 volumes:
+  caddy_data:
+  caddy_config:
   pgdata:
-    driver: local

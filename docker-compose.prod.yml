@@ -1,6 +1,9 @@
 version: '3.4'
 
 services:
+  caddy:
+    environment:
+      SERVER_NAME: ${SERVER_NAME}
   keycloakdb:
     # ports:
     #   - 5432:5432
@@ -8,7 +11,6 @@ services:
       POSTGRES_DDB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-
   keycloak:
     command: start --optimized
     ports:
@@ -16,3 +18,4 @@ services:
     environment:
       KC_DB_USERNAME: ${POSTGRES_USER}
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      KC_LOG_LEVEL: info

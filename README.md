@@ -4,9 +4,10 @@ A Keycloak setup for development and production.
 
 ## Guide
 
-### Build the custom docker image
+### Download and build the latest versions of the images
+```docker-compose build --pull --no-cache```
 
-```docker build . -t keycloak_image```
+## Start Docker Compose in detached mode:
 
 ### Development
 ```docker compose up -d```
