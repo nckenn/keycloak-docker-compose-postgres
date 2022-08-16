@@ -1,5 +1,5 @@
-# Keycloak Docker setup with PostgreSQL
 
+# Keycloak Docker setup with PostgreSQL
 A Keycloak setup for development and production.
 
 ## Guide
@@ -9,8 +9,16 @@ A Keycloak setup for development and production.
 
 ## Start Docker Compose in detached mode:
 
-### Development
+### For Development
 ```docker compose up -d```
 
-### Production
+### For Production
+Create a .env.prod file and paste the code below :
+```
+SERVER_NAME=example.com
+POSTGRES_DB=keycloak
+POSTGRES_USER=keycloak
+POSTGRES_PASSWORD=keycloak
+```
+Then run :
 ```docker compose -f docker-compose.yml -f docker-compose.prod.yml --env-file .env.prod up -d```

@@ -47,7 +47,7 @@ services:
       KC_HTTP_ENABLED: "true"
       #KC_HOSTNAME: localhost
       #KC_HOSTNAME_PORT: 8443
-      #PROXY_ADDRESS_FORWARDING: "true"
+      PROXY_ADDRESS_FORWARDING: "true"
       KC_HOSTNAME_STRICT: "false"
       KC_HOSTNAME_STRICT_BACKCHANNEL: "true"
       KC_HOSTNAME_STRICT_HTTPS: "false"
