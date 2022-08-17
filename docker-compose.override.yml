@@ -6,7 +6,7 @@ services:
   #     - 32769:5432
   keycloak:
     command: start-dev
-    ports:
-      - 8180:8080
+    # ports:
+    #   - 8180:8080
     environment:
       KC_LOG_LEVEL: debug
