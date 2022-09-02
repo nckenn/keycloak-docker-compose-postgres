@@ -43,10 +43,10 @@ services:
     image: keycloak_image
     environment:
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN:-admin}
-      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASS:-admin}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-admin}
       KC_HTTP_ENABLED: "true"
-      #KC_HOSTNAME: localhost
-      #KC_HOSTNAME_PORT: 8443
+      # KC_HOSTNAME: localhost
+      # KC_HOSTNAME_PORT: 8443
       PROXY_ADDRESS_FORWARDING: "true"
       KC_HOSTNAME_STRICT: "false"
       KC_HOSTNAME_STRICT_BACKCHANNEL: "true"
@@ -56,6 +56,8 @@ services:
       KC_DB_USERNAME: ${POSTGRES_USER:-keycloak}
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD:-p@ssw0rd}
       KC_PROXY: edge
+    # volumes:
+    #   - ./keycloak/themes/custom:/opt/keycloak/themes/custom
     depends_on:
       - keycloakdb
 

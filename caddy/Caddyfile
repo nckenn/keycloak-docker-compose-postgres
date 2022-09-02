@@ -2,16 +2,9 @@
     admin off
 }
 
-# With Domain Name
-# {$SERVER_NAME}
-# reverse_proxy http://keycloak:8080
-# encode zstd gzip
-
-# Using static IP
-:80 {
-   reverse_proxy http://keycloak:8080
-   encode zstd gzip
-}
+{$SERVER_NAME}
+reverse_proxy http://keycloak:8080
+encode zstd gzip
 
 log
 

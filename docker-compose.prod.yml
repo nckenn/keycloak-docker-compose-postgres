@@ -13,9 +13,9 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
   keycloak:
     command: start --optimized
-    # ports:
-    #   - 8080:8080
     environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
       KC_DB_USERNAME: ${POSTGRES_USER}
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
       KC_LOG_LEVEL: info

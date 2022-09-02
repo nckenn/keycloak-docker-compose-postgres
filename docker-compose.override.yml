@@ -1,12 +1,15 @@
 version: '3.4'
 
 services:
+  caddy:
+    environment:
+      SERVER_NAME: :80
+
   # keycloakdb:
   #   ports:
   #     - 32769:5432
   keycloak:
+    # command: start-dev --spi-theme-static-max-age=-1 --spi-theme-cache-themes=false --spi-theme-cache-templates=false
     command: start-dev
-    # ports:
-    #   - 8180:8080
     environment:
       KC_LOG_LEVEL: debug
