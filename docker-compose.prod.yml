@@ -5,8 +5,6 @@ services:
     environment:
       SERVER_NAME: ${SERVER_NAME}
   keycloakdb:
-    # ports:
-    #   - 5432:5432
     environment:
       POSTGRES_DDB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
