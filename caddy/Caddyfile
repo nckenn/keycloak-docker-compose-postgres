@@ -3,8 +3,15 @@
 }
 
 {$SERVER_NAME}
-reverse_proxy http://keycloak:8080
-encode zstd gzip
 
 log
+
+route {
+
+    reverse_proxy http://keycloak:8080
+    encode zstd gzip
+    
+}
+
+
 

@@ -31,6 +31,7 @@ services:
     image: postgres:${POSTGRES_VERSION:-14.5}-alpine
     volumes:
       - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-keycloak}
       POSTGRES_USER: ${POSTGRES_USER:-keycloak}
@@ -41,6 +42,7 @@ services:
       context: ./keycloak
     container_name: keycloak
     image: keycloak_image
+    restart: unless-stopped
     environment:
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN:-admin}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-admin}
